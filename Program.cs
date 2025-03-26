@@ -58,9 +58,9 @@ class Venta
             Console.WriteLine("Ingrese el codigo del producto que quiere busca");
             string buscar = Console.ReadLine();
             
-            for (int i = 0; i < ventas.Length; i++) //Bucle que recorre el arreglo de nombres
+            for (int i = 0; i < ventas.Length; i++) //Bucle que recorre el arreglo de codigo
             {
-                if (ventas[i].codigo == buscar) //Condición para saber si el nombre se encuentra en el arreglo
+                if (ventas[i].codigo == buscar) //Condición para saber si el codigo se encuentra en el arreglo
                 {
                     Console.WriteLine("El codigo " + buscar + " se encuentra en el stock");
                 }
