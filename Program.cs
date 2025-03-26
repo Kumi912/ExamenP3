@@ -48,7 +48,7 @@ class Venta
         }
     }
 
-    public void BuscarProducto(string Venta) //Metodo para buscar un producto
+    public static void BuscarProducto(string Venta) //Metodo para buscar un producto
     {
         if (File.Exists(Venta)) //Si el archivo existe
         {
@@ -64,48 +64,12 @@ class Venta
                 {
                     Console.WriteLine("El codigo " + buscar + " se encuentra en el stock");
                 }
-                else
-                {
-                    Console.WriteLine("El codigo " + buscar + "no se encuentra en el stock");
-                }
             }
         }
     }
 
-    public void Comprar()
-    {
-        if (File.Exists(Venta)) //Si el archivo existe
-        {
-            string contenido = File.ReadAllText(Venta); //Guardamos el contenido del archivo en una variable
-            Venta [] ventas = JsonSerializer.Deserialize<Venta []>(contenido); //Deserializamos el contenido del archivo en una lista de objetos Venta
-            
-            Console.WriteLine("Ingrese el producto que quiere comprar");
-            string producto = Console.ReadLine();
-            
-            Console.WriteLine("Ingrese la cantidad que quiere comprar");
-            int cantidad = int.Parse(Console.ReadLine());
-            
-            for (int i = 0; i < ventas.Length; i++)
-            {
-                if (ventas[i].nombre == producto)
-                {
-                    ventas[i].stock - cantidad;
-                }
-            }
-        }
-    }
-
-    public void Pagar()
-    {
-        if (File.Exists(Venta)) //Si el archivo existe
-        {
-            string contenido = File.ReadAllText(Venta); //Guardamos el contenido del archivo en una variable
-            Venta [] ventas = JsonSerializer.Deserialize<Venta []>(contenido); //Deserializamos el contenido del archivo en una lista de objetos Venta
-            
-            Comprar();
-            
-        }
-    }
+    
+    
 }
 
 class Program
@@ -132,5 +96,7 @@ class Program
         File.WriteAllText(Ventas, guardar); //Guardamos el string en el archivo ventas.json
         
         Venta.MostrarInformacion(Ventas); //Llamamos al metodo MostrarInformacion para mostrar los datos de los productos   
+
+        Venta.BuscarProducto(Ventas); //Llamamos al metodo BuscarProducto para buscar un producto
     }
 }
