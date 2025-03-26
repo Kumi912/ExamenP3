@@ -62,7 +62,32 @@ class Venta
             {
                 if (ventas[i].codigo == buscar) //Condición para saber si el codigo se encuentra en el arreglo
                 {
-                    Console.WriteLine("El codigo " + buscar + " se encuentra en el stock");
+                    Console.WriteLine("El codigo " + buscar + " se encuentra en el stock"); //Mostramos un mensaje de que el codigo se encuentra en el stock
+                }
+            }
+        }
+    }
+
+    public static void Comprar(string Venta) //Metodo para comprar un producto
+    {
+        if (File.Exists(Venta)) //Si el archivo existe
+        {
+            string contenido = File.ReadAllText(Venta); //Guardamos el contenido del archivo en una variable
+            Venta [] ventas = JsonSerializer.Deserialize<Venta []>(contenido); //Deserializamos el contenido del archivo en una lista de objetos Venta
+            
+            Console.WriteLine("Ingrese el producto que quiere comprar"); //Pedimos al usuario el producto que quiere comprar
+            string producto = Console.ReadLine(); //Guardamos el producto en la variable producto
+            
+            Console.WriteLine("Ingrese la cantidad que quiere comprar"); //Pedimos al usuario la cantidad que quiere comprar
+            int cantidad = int.Parse(Console.ReadLine()); //Guardamos la cantidad en la variable cantidad
+            
+            for (int i = 0; i < ventas.Length; i++) //Bucle que recorre el arreglo de ventas
+            {
+                if (ventas[i].nombre == producto) //Condición para saber si el producto se encuentra en el arreglo
+                {
+                    ventas[i].stock -= cantidad; //Restamos la cantidad comprada al stock
+                    Console.WriteLine("Compra el producto " + producto); //Mostramos un mensaje de que se compro el producto
+                    Console.WriteLine("El stock actual es " + ventas[i].stock); //Mostramos el stock actual
                 }
             }
         }
@@ -98,5 +123,7 @@ class Program
         Venta.MostrarInformacion(Ventas); //Llamamos al metodo MostrarInformacion para mostrar los datos de los productos   
 
         Venta.BuscarProducto(Ventas); //Llamamos al metodo BuscarProducto para buscar un producto
+
+        Venta.Comprar(Ventas); //Llamamos al metodo Comprar para comprar un producto
     }
 }
